@@ -1,42 +1,17 @@
-let users = [
-    {
-        id: 1,
-        name: 'jonas',
-        active: true 
-    },
-    {
-        id: 2,
-        name: 'canofree',
-        active: false
-    },
-];
+const sum = require('./math');
 
-const addUser = (id ,name, active) => {
-    const userNew = {
-        id: id,
-        name: name,
-        active: active
-    };
-    users.push(userNew)
-    const search = users.find(user => user.id === id)
-    return search.name
+let users = [];
+
+function addUser(user) {
+  users.push(user);
 }
 
-
-
-const getUser = (id) => {
-    const user = users.find(user => user.id === id)
-    console.log(user.name)
-    console.log(user.active)
-    console.log(user.id)
-    return
+function getUser(id) {
+  return users.find(user => user.id === id);
 }
 
-const activeUsers = () => {
-    const noss = users.filter(user => user.active === true).length;
-    return noss
-} 
+function getTotalActiveUsers() {
+  return users.reduce((total, user) => sum(total, user.active ? 1 : 0), 0);
+}
 
-module.exports = getUser
-module.exports = addUser
-module.exports = activeUsers
+module.exports = { addUser, getUser, getTotalActiveUsers };

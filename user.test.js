@@ -1,16 +1,19 @@
-const getUser = require('./user');
-const addUser = require('./user');
-const activeUsers = require('./user');
+const { addUser, getUser, getTotalActiveUsers } = require('./user');
 
-
-test('adicionar usuario', () => {
-    expect(addUser(5,'cleber', true)).toBe(1)
+beforeEach(() => {
+  users = [];
 });
 
-test('encontrar nome do user pelo id', () => {
-    expect(getUser(1)).toBe(1, true, 1)
+test('Adicionar um usuário e verificar se ele foi adicionado', () => {
+  const user = { id: 1, name: 'Alice', active: true };
+  addUser(user);
+  expect(getUser(1)).toEqual(user);
 });
 
-test('contar os ativos', () => {
-    expect(activeUsers().toBe(1))
-})
+test('Verificar o total de usuários ativos', () => {
+  addUser({ id: 1, name: 'Alice', active: true });
+  addUser({ id: 2, name: 'Bob', active: false });
+  addUser({ id: 3, name: 'Charlie', active: true });
+
+  expect(getTotalActiveUsers()).toBe(2);
+});
